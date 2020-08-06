@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
 public class SynchronizedBlocks {
+    private static final int NUMBER_OF_ITEMS = 100000;
     static class Chart {
         private int[] productsInCart = new int[3];
 
@@ -26,7 +27,7 @@ public class SynchronizedBlocks {
     public static void main(String[] args) throws InterruptedException {
         Chart chart = new Chart();
         ExecutorService service = Executors.newFixedThreadPool(3);
-        IntStream.range(0, 1000000)
+        IntStream.range(0, NUMBER_OF_ITEMS)
                 .forEach(number -> service.submit(() -> chart.addToChart(0)));
         service.awaitTermination(20, TimeUnit.SECONDS);
         service.shutdown();
