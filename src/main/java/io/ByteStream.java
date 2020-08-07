@@ -4,11 +4,11 @@ import java.io.*;
 
 public class ByteStream {
 
-    private static final String INPUT_FILENAME = "input.txt";
-    private static final String OUTPUT_FILENAME = "output.txt";
+    private static final String INPUT_FILENAME = "src/main/resources/cat.jpg";
+    private static final String OUTPUT_FILENAME = "src/main/resources/copied-cat.jpg";
 
     public static void main(String[] args) {
-
+        copySingleBytes();
     }
 
     public static void copySingleBytes() {
