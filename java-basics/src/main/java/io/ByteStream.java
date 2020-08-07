@@ -23,7 +23,32 @@ public class ByteStream {
             startTime = System.nanoTime();
             int byteRead;
 
-// przepisywanie bajtu po bajcie z inputStream do outputStream
+            while((byteRead = in.read()) != -1) {
+                out.write(byteRead);
+            }
+
+            elapsedTime = System.nanoTime() - startTime;
+            System.out.println("Elapsed Time is " + (elapsedTime / 1000000.0) + " msec");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static void copyUsingBuffer() {
+        long startTime, elapsedTime;
+
+        File fileIn = new File(INPUT_FILENAME);
+        System.out.println("File size is " + fileIn.length() + " bytes");
+
+        try (FileInputStream in = new FileInputStream(INPUT_FILENAME);
+             FileOutputStream out = new FileOutputStream(OUTPUT_FILENAME)) {
+
+            startTime = System.nanoTime();
+            byte[] byteBuf = new byte[4096];
+            int numBytesRead;
+            while ((numBytesRead = in.read(byteBuf)) != -1) {
+                out.write(byteBuf, 0, numBytesRead);
+            }
 
             elapsedTime = System.nanoTime() - startTime;
             System.out.println("Elapsed Time is " + (elapsedTime / 1000000.0) + " msec");
