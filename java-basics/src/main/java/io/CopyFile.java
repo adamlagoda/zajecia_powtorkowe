@@ -57,7 +57,12 @@ public class CopyFile {
             }
         } else {
             List<String> lines = Files.readAllLines(source);
-            Files.write(destination, lines);
+            StringBuilder sb = new StringBuilder();
+            lines.stream().forEach(line -> {
+                sb.append(line);
+                sb.append("\n");
+            });
+            Files.writeString(destination, sb.toString().trim());
         }
     }
 
