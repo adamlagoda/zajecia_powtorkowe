@@ -23,7 +23,7 @@ public class ByteStream {
             startTime = System.nanoTime();
             int byteRead;
 
-            while((byteRead = in.read()) != -1) {
+            while ((byteRead = in.read()) != -1) {
                 out.write(byteRead);
             }
 
@@ -57,25 +57,6 @@ public class ByteStream {
         }
     }
 
-    public static void copyUsingBuffer() {
-        long startTime, elapsedTime;
-
-        File fileIn = new File(INPUT_FILENAME);
-        System.out.println("File size is " + fileIn.length() + " bytes");
-
-        try (FileInputStream in = new FileInputStream(INPUT_FILENAME);
-             FileOutputStream out = new FileOutputStream(OUTPUT_FILENAME)) {
-
-            startTime = System.nanoTime();
-            //Rozwiązanie
-
-            elapsedTime = System.nanoTime() - startTime;
-            System.out.println("Elapsed Time is " + (elapsedTime / 1000000.0) + " msec");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
     public static void copyUsingBufferedStreams() {
         long startTime, elapsedTime;
 
@@ -86,7 +67,10 @@ public class ByteStream {
              BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(OUTPUT_FILENAME))) {
 
             startTime = System.nanoTime();
-            //Rozwiązanie
+            int numBytesRead;
+            while ((numBytesRead = in.read()) != -1) {
+                out.write(numBytesRead);
+            }
 
             elapsedTime = System.nanoTime() - startTime;
             System.out.println("Elapsed Time is " + (elapsedTime / 1000000.0) + " msec");
