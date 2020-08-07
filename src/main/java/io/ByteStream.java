@@ -1,9 +1,6 @@
 package io;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 public class ByteStream {
 
@@ -35,4 +32,41 @@ public class ByteStream {
         }
     }
 
+    public static void copyUsingBuffer() {
+        long startTime, elapsedTime;
+
+        File fileIn = new File(INPUT_FILENAME);
+        System.out.println("File size is " + fileIn.length() + " bytes");
+
+        try (FileInputStream in = new FileInputStream(INPUT_FILENAME);
+             FileOutputStream out = new FileOutputStream(OUTPUT_FILENAME)) {
+
+            startTime = System.nanoTime();
+            //Rozwiązanie
+
+            elapsedTime = System.nanoTime() - startTime;
+            System.out.println("Elapsed Time is " + (elapsedTime / 1000000.0) + " msec");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static void copyUsingBufferedStreams() {
+        long startTime, elapsedTime;
+
+        File fileIn = new File(INPUT_FILENAME);
+        System.out.println("File size is " + fileIn.length() + " bytes");
+
+        try (BufferedInputStream in = new BufferedInputStream(new FileInputStream(INPUT_FILENAME));
+             BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(OUTPUT_FILENAME))) {
+
+            startTime = System.nanoTime();
+            //Rozwiązanie
+
+            elapsedTime = System.nanoTime() - startTime;
+            System.out.println("Elapsed Time is " + (elapsedTime / 1000000.0) + " msec");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 }
