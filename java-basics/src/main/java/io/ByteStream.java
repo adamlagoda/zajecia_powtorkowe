@@ -9,6 +9,7 @@ public class ByteStream {
 
     public static void main(String[] args) {
         copySingleBytes();
+        copyUsingBufferedStreams();
     }
 
     public static void copySingleBytes() {
