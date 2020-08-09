@@ -2,7 +2,7 @@ package hibernate.dao;
 
 import hibernate.entity.Student;
 
-import java.util.Set;
+import java.util.List;
 
 public interface StudentDao {
     Student create(Student student);
@@ -11,7 +11,7 @@ public interface StudentDao {
 
     Student get(int id);
 
-    Set<Student> findAll();
+    List<Student> findAll();
 
     void delete(int id);
 

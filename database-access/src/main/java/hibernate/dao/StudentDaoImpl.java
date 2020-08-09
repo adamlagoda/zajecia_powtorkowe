@@ -6,7 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.EntityManager;
-import java.util.Set;
+import javax.persistence.TypedQuery;
+import java.util.List;
 
 public class StudentDaoImpl implements StudentDao {
     private final Configuration configuration;
@@ -44,8 +45,19 @@ public class StudentDaoImpl implements StudentDao {
     }
 
     @Override
-    public Set<Student> findAll() {
-        return null;
+    public List<Student> findAll() {
+        EntityManager em = null;
+        List<Student> found = null;
+        try {
+            em = configuration.getEntityManager();
+            TypedQuery<Student> query = em.createQuery("SELECT s FROM Student s", Student.class);
+            found = query.getResultList();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+        return found;
     }
 
     @Override
@@ -60,7 +72,7 @@ public class StudentDaoImpl implements StudentDao {
 
     public static void main(String[] args) {
         StudentDao dao = new StudentDaoImpl();
-        Student student = dao.find(1);
+        List<Student> student = dao.findAll();
         logger.info(student.toString());
     }
 }
