@@ -40,11 +40,11 @@ public class ConnectionFactory {
         MysqlDataSource dataSource = null;
         try {
             dataSource = new MysqlDataSource();
-            dataSource.setServerName(properties.getProperty("org.example.jdbc.starter.server"));
-            dataSource.setDatabaseName(properties.getProperty("org.example.jdbc.starter.name"));
-            dataSource.setUser(properties.getProperty("org.example.jdbc.starter.user"));
-            dataSource.setPassword(properties.getProperty("org.example.jdbc.starter.password"));
-            dataSource.setPort(Integer.valueOf(properties.getProperty("org.example.jdbc.starter.port")));
+            dataSource.setServerName(properties.getProperty("jdbc.server"));
+            dataSource.setDatabaseName(properties.getProperty("jdbc.sname"));
+            dataSource.setUser(properties.getProperty("jdbc.usser"));
+            dataSource.setPassword(properties.getProperty("jdbc.password"));
+            dataSource.setPort(Integer.valueOf(properties.getProperty("jdbc.port")));
             dataSource.setAllowMultiQueries(true);
             dataSource.setServerTimezone("Europe/Warsaw");
             dataSource.setUseSSL(false);
