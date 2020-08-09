@@ -12,7 +12,7 @@ public class Configuration {
     private EntityManagerFactory entityManagerFactory;
 
     public Configuration() {
-        entityManagerFactory = Persistence.createEntityManagerFactory("hibernate");
+        entityManagerFactory = Persistence.createEntityManagerFactory("hibernate.entity");
     }
 
     public void close() {
