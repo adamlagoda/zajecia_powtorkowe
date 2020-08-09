@@ -1,0 +1,4 @@
+create table skills (skill_id INT auto_increment primary key, skill_name VARCHAR(100));
+create table courses (course_id INT auto_increment primary key, course_name varchar(100), place VARCHAR(50), start_date DATE, end_date date);
+create table students (student_id INT auto_increment primary key, course_id INT NOT NULL, student_name VARCHAR(50), age smallint, foreign key(course_id) references courses(course_id));
+create table students_skills(student_id INT, skill_id INT, FOREIGN key (student_id) references students(student_id), foreign key (skill_id) references skills(skill_id), primary key (student_id, skill_id));
