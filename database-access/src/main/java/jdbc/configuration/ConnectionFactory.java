@@ -41,18 +41,23 @@ public class ConnectionFactory {
         try {
             dataSource = new MysqlDataSource();
             dataSource.setServerName(properties.getProperty("jdbc.server"));
-            dataSource.setDatabaseName(properties.getProperty("jdbc.sname"));
-            dataSource.setUser(properties.getProperty("jdbc.usser"));
+            dataSource.setDatabaseName(properties.getProperty("jdbc.name"));
+            dataSource.setUser(properties.getProperty("jdbc.user"));
             dataSource.setPassword(properties.getProperty("jdbc.password"));
-            dataSource.setPort(Integer.valueOf(properties.getProperty("jdbc.port")));
-            dataSource.setAllowMultiQueries(true);
+            dataSource.setPort(Integer.parseInt(properties.getProperty("jdbc.port")));
+            //dataSource.setAllowMultiQueries(true);
             dataSource.setServerTimezone("Europe/Warsaw");
-            dataSource.setUseSSL(false);
+            //dataSource.setUseSSL(false);
             dataSource.setCharacterEncoding("UTF-8");
         } catch (SQLException e) {
             logger.error("Error during creating MysqlDataSource", e);
         }
         logger.info("Connecting to a selected database...");
         return dataSource.getConnection();
+    }
+
+    public static void main(String[] args) throws SQLException {
+        ConnectionFactory connectionFactory = new ConnectionFactory("database.properties");
+        connectionFactory.getConnection();
     }
 }
