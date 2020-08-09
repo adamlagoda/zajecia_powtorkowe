@@ -2,10 +2,13 @@ package jdbc.dao;
 
 import jdbc.configuration.ConnectionFactory;
 import jdbc.model.Course;
+import jdbc.model.Student;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.*;
+import java.util.HashSet;
+import java.util.Set;
 
 public class CourseDaoImpl implements CourseDao {
     private static final Logger logger = LoggerFactory.getLogger(CourseDaoImpl.class);
@@ -39,7 +42,31 @@ public class CourseDaoImpl implements CourseDao {
 
     @Override
     public Course find(int id) {
-        return null;
+        Course created = null;
+        Set<Student> studentSet = new HashSet<>();
+        try (Connection connection = connectionFactory.getConnection();
+             Statement select = connection.createStatement()) {
+            ResultSet resultSet = select.executeQuery("SELECT * FROM courses c LEFT JOIN students s on c.course_id = s.course_id ");
+            while (resultSet.next()) {
+                int courseId = resultSet.getInt("course_id");
+                String name = resultSet.getString("course_name");
+                String place = resultSet.getString("place");
+                Date startDate = resultSet.getDate("start_date");
+                Date endDate = resultSet.getDate("end_date");
+                if (created == null) {
+                    created = new Course(courseId, name, place, startDate, endDate);
+                }
+                String studentName = resultSet.getString("student_name");
+                int age = resultSet.getInt("age");
+                Student student = new Student(studentName, age);
+                studentSet.add(student);
+                created.getStudents().add(student);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        logger.info("Course found");
+        return created;
     }
 
     @Override
@@ -59,7 +86,7 @@ public class CourseDaoImpl implements CourseDao {
 
     public static void main(String[] args) {
         CourseDao dao = new CourseDaoImpl();
-        Course course = new Course("javaPoz21", "Poznań", Date.valueOf("2019-09-14"), Date.valueOf("2020-12-20"));
-        dao.create(course);
+        Course course = dao.find(1);
+        logger.info(course.toString());
     }
 }

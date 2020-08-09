@@ -2,6 +2,8 @@ package jdbc.model;
 
 
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Course {
     private int id;
@@ -9,7 +11,7 @@ public class Course {
     private String place;
     private Date startDate;
     private Date endDate;
-    private Iterable<Student> students;
+    private Set<Student> students = new HashSet<>();
 
     public Course(String name, String place, Date startDate, Date endDate) {
         this.name = name;
@@ -66,11 +68,11 @@ public class Course {
         this.endDate = endDate;
     }
 
-    public Iterable<Student> getStudents() {
+    public Set<Student> getStudents() {
         return students;
     }
 
-    public void setStudents(Iterable<Student> students) {
+    public void setStudents(Set<Student> students) {
         this.students = students;
     }
 
